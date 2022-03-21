@@ -1,0 +1,37 @@
+<div class="w-50 mx-auto"> 
+
+          <div class="mr-auto">
+            
+
+                <form class="bd-example p-5 shadow rounded" action="/register" method="post" enctype="multipart/form-data">
+                    <h5>Register</h5>
+                    <div class="form-group">
+                        <label for="username">Username *</label>
+                        <input name="username" class="form-control" id="username" placeholder="Enter your username" required>
+                        {{!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input name="email" class="form-control" id="email" placeholder="Enter your email" autofocus required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password *</label>
+                        <input name="password" type="password" class="form-control" id="password" placeholder="Enter your password">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input name="address" class="form-control" id="address" placeholder="Enter your address">
+                    </div>
+                    <div class="form-group">
+                        <label for="avatar">Avatar</label>
+                        <input name="avatar" type="file" id="avatar" placeholder="Enter your avatar URL">
+                    </div>
+                    <div>
+                         <small class="form-text text-muted">Do you have a user? <a href="/login"><label class="form-check-label" for="exampleCheck1">Login</label></a></small>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                </form>
+
+          </div>
+
+      </div>

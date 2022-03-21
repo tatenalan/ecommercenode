@@ -1,0 +1,14 @@
+<div class="container"> 
+    {{#if username}}
+            <div class="alert alert-dark mt-4 d-flex align-items-center justify-content-between" role="alert">
+                Welcome {{username}}!
+                <form action="/logout" method="post">
+                <button type="submit" class="btn btn-secondary">Logout</button>
+                </form>
+            </div>
+            {{else}}
+            <div class="alert mt-4 d-flex align-items-center justify-content-end" role="alert">
+                <a class="btn btn-secondary" href="/login">Login</a>
+            </div>
+    {{/if}}
+</div>

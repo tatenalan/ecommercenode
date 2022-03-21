@@ -1,0 +1,37 @@
+<div class="container"> 
+
+          <div class="mr-auto shadow p-5">
+            {{#if data.products}}
+              <h5>List of products</h5>
+
+              <table class="table bg-white table-hover">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">id</th>
+                      <th scope="col">Title</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Thumbnail</th>
+                    </tr>
+                  </thead>
+                  <tbody id="product-table">
+                      {{#each data.products}}
+                        <tr>
+                          <th scope="row">{{this._id}}</th>
+                          <td>{{this.name}}</td>
+                          <td>${{this.price}}</td>
+                          <td>{{this.thumbnail}}</td>
+                          {{!-- <td><img style="width:50px;" src="{{this.thumbnail}}" alt=""></td> --}}
+                        </tr>
+                      {{/each}}
+                  </tbody>
+              </table>
+
+            {{else}}
+                <div class="alert alert-danger" role="alert">
+                  No products have been found
+                </div>
+            {{/if}}
+
+          </div>
+
+      </div>

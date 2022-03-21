@@ -1,0 +1,27 @@
+      <div class="w-25 mx-auto"> 
+
+          <div class="mr-auto">
+            
+
+                <form class="bd-example p-5 shadow rounded" action="/login" method="post">
+                    <h5>Login</h5>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input name="username" class="form-control" id="username" placeholder="Enter your username" autofocus>
+                        {{!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input name="password" type="password" class="form-control" id="password" placeholder="Enter your password">
+                    </div>
+                    <div>
+                        {{!-- <input type="checkbox" class="form-check-input" id="exampleCheck1"> --}}
+                        {{!-- <label class="form-check-label" for="exampleCheck1">Remember me</label> --}}
+                        <small class="form-text text-muted">Do you need a user? <a href="/register"><label class="form-check-label" for="exampleCheck1">Create a user</label></a></small>                       
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                </form>
+
+          </div>
+
+      </div>
