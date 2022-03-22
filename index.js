@@ -40,7 +40,7 @@ const { Server: IOServer } = require('socket.io');
 // mongoose.connect(URL, () => console.log(`MongoDB connected`))
 
 // Mongo Atlas
-const URL = config.DB_URL;
+const URL = config.DB_URL || "mongodb+srv://coder12:coder12@cluster0.obxgw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 mongoose.connect(URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -79,7 +79,7 @@ app.use(session({
 // configuro el servidor
 
 //PORT - Server
-const PORT = config.PORT;
+const PORT = config.PORT || 8080;
 // Arrancamos el servidor con http.listen() en lugar de app.listen()
 const server = httpServer.listen(PORT, () => console.log(`Running on ${PORT}`))
 server.on('error', error => console.log(`Error on server ${error}`))
