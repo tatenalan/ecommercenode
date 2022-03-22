@@ -1,5 +1,7 @@
 const User = require("../../models/User");
+const CartController = require("../../controllers/web/CartController");
 const bcrypt = require('bcrypt');
+const { sendEmail } = require('../../notifications/mails/welcomeMail');
 
 const loginIndex = async (req, res) => {
     try {
@@ -18,10 +20,15 @@ const login = async (req, res) => {
         return res.send('login-error')
     }
 
+    req.session.userId = user._id
     req.session.username = user.username
     req.session.email = user.email
     req.session.address = user.address
     req.session.avatar = user.avatar
+    req.session.age = user.age
+    req.session.phone = user.phone
+
+    console.log(req.session);
 
     res.redirect('/')
 }
@@ -37,8 +44,22 @@ const registerIndex = async (req, res) => {
 const register = async (req, res) => {
     const salt = bcrypt.genSaltSync(4);
     req.body.password = bcrypt.hashSync(req.body.password, salt);
-    req.body.avatar = req.file.filename
-    await User.create(req.body);
+    if(req.file){
+        req.body.avatar = req.file.filename
+    }
+
+    //creo el usuario
+    User.create(req.body).then((user) => {
+        // creo su carrito
+        CartController.createCart(user._id).then(() => {
+            // envío el email
+            sendEmail(req.body);
+        })
+    });
+
+
+
+
     res.redirect('/login')
 }
 

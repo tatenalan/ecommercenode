@@ -9,6 +9,7 @@ const productRouter = require('./routes/web/productRouter');
 const messageRouterApi = require('./routes/api/messageRouter');
 const messageRouter = require('./routes/web/messageRouter');
 const authRouter = require('./routes/web/authRouter');
+const cartRouter = require('./routes/web/cartRouter');
 
 // multer para subir avatars
 // const multer = require('multer');
@@ -70,7 +71,7 @@ app.use(session({
     resave: true,
     rolling: true,
     saveUninitialized: true,
-    cookie: { maxAge: 60000 } // 60 segundos
+    // cookie: { maxAge: 60000 } // 60 segundos
 }))
 
 
@@ -104,6 +105,7 @@ app.use('/api/products', productRouterApi)
 app.use('/products', productRouter)
 app.use('/api/messages', messageRouterApi)
 app.use('/messages', messageRouter)
+app.use('/cart', cartRouter)
 app.use('/', authRouter)
 
 // ruta root

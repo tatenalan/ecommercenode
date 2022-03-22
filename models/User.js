@@ -12,6 +12,8 @@ const User = mongoose.model('User', new Schema({
         type: String,
         unique: true
     },
+    age: Number,
+    phone: Number,
     avatar: String,
     password:String
 }))

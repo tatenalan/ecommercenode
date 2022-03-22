@@ -1,8 +1,8 @@
 <div class="container"> 
 
           <div class="mr-auto shadow p-5">
-            {{#if data.products}}
-              <h5>List of products</h5>
+            {{#if cart.products}}
+              <h5>Your cart</h5>
 
               <table class="table bg-white table-hover">
                   <thead class="thead-dark">
@@ -11,32 +11,26 @@
                       <th scope="col">Title</th>
                       <th scope="col">Price</th>
                       <th scope="col">Thumbnail</th>
-                      <th scope="col">Action</th>
                     </tr>
                   </thead>
                   <tbody id="product-table">
-                      {{#each data.products}}
+                      {{#each cart.products}}
                         <tr>
                           <th scope="row">{{this._id}}</th>
                           <td>{{this.name}}</td>
                           <td>${{this.price}}</td>
                           <td>{{this.thumbnail}}</td>
                           {{!-- <td><img style="width:50px;" src="{{this.thumbnail}}" alt=""></td> --}}
-                          <form action="/cart/addToCart" method="post">
-                            <input type="hidden" name="id" value="{{this._id}}">
-                            <input type="hidden" name="name" value="{{this.name}}">
-                            <input type="hidden" name="price" value="{{this.price}}">
-                            <input type="hidden" name="thumbnail" value="{{this.thumbnail}}">
-                            <td><button type="submit" class="btn btn-primary">Add to cart</button></td>
-                          </form>
                         </tr>
                       {{/each}}
                   </tbody>
               </table>
 
+              <button class="btn btn-primary">Purchase</button>
+
             {{else}}
                 <div class="alert alert-danger" role="alert">
-                  No products have been found
+                  Your cart is empty
                 </div>
             {{/if}}
 

@@ -6,8 +6,15 @@ const { Schema } = mongoose
 // Tambien usamos un modelo constructor para poder crear instancias de los documentos/collections.
 const Cart = mongoose.model('Cart', new Schema(
     {
+        userId:
+        {
+            type:String,
+            unique: true,
+            required: true
+        },
         products: {
-
+            type: [],
+            required: false
         },
     }))
 
