@@ -3,6 +3,21 @@ const mongoose = require('mongoose');
 const ServiceException = require("./exceptions/ServiceException");
 const config = require("./config");
 
+// twilio
+const twilio = require('twilio')
+const accountSid = 'AC23f2171f48cfe11a66834fd8b83da878'
+const authToken = 'a71402b143007184de1dc217877cfe1f'
+const client = twilio(accountSid, authToken)
+
+client.messages.create({
+        from: 'whatsapp:+14155238886',
+        to:'whatsapp:+5491158291281',
+        body: 'el body'
+    })
+    .then(message => console.log(message.sid))
+    .catch(e => console.log(e))
+   
+
 // rutas
 const productRouterApi = require('./routes/api/productRouter');
 const productRouter = require('./routes/web/productRouter');
@@ -10,9 +25,6 @@ const messageRouterApi = require('./routes/api/messageRouter');
 const messageRouter = require('./routes/web/messageRouter');
 const authRouter = require('./routes/web/authRouter');
 const cartRouter = require('./routes/web/cartRouter');
-
-// multer para subir avatars
-// const multer = require('multer');
 
 // plantillas
 const handlebars = require('express-handlebars');
@@ -57,6 +69,8 @@ mongoose.connect(URL, {
 const app = express();
 
 // chat
+const Message = require('./models/Message');
+const { log } = require("console");
 const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
 

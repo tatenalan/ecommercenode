@@ -18,15 +18,11 @@ const addToCart = async (req, res) => {
         Cart.findOne({userId:req.session.userId}).then((cart) => {
             if (cart) {
                 let id = cart._id
-                console.log(cart);
                 cart.products.push(req.body)
-                console.log(cart);   
-                cart.replaceOne({_id: id}, cart).then((response) => {
-                    console.log(response);
-                    console.log('ok');
-                }).catch((error) => {
-                    console.log(error);
-                    console.log('errorrr!!I428y427');
+                let products = cart.products
+                cart.replaceOne({_id: id, userId: req.session.userId, products: products }, cart).then((response) => {
+                }).catch((error) => {                  
+                    console.log('errorrr!!');
                 })  
                 res.json(cart)   
             } else {
