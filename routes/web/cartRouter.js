@@ -11,5 +11,6 @@ const cartRouter = Router()
 
 cartRouter.get('/', auth, CartController.getByUserId)
 cartRouter.post('/addToCart', auth, CartController.addToCart)
+cartRouter.post('/purchase', auth, CartController.purchase)
 
 module.exports = cartRouter

@@ -4,11 +4,16 @@ const bcrypt = require('bcrypt');
 const { sendEmail } = require('../../notifications/mails/welcomeMail');
 
 const loginIndex = async (req, res) => {
-    try {
+    // si ya estoy logueado redirijo al user al home
+    if(req.session.username) {
+        try {
+            res.redirect('/')
+        } catch (error) {
+            throw new Error(`${error}`)
+        }
+    } else {
         res.render('login');
-    } catch (error) {
-        throw new Error(`${error}`)
-    }
+    } 
 }
 
 const login = async (req, res) => {
@@ -20,6 +25,7 @@ const login = async (req, res) => {
         return res.send('login-error')
     }
 
+    // si las credenciales son correctas asigno los datos de sesión que yo quiera
     req.session.userId = user._id
     req.session.username = user.username
     req.session.email = user.email
@@ -27,8 +33,6 @@ const login = async (req, res) => {
     req.session.avatar = user.avatar
     req.session.age = user.age
     req.session.phone = user.phone
-
-    console.log(req.session);
 
     res.redirect('/')
 }

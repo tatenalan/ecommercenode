@@ -1,5 +1,5 @@
 function auth(req, res, next) {
-    // si existe la sesión almacenar en locals los datos para poder compartirla en todas las vistas
+    // si existe la sesión almaceno en locals los datos para poder compartirla en todas las vistas
     if(req.session.username) {
         res.locals = {
             userId : req.session.userId,

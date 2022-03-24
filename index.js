@@ -3,19 +3,19 @@ const mongoose = require('mongoose');
 const ServiceException = require("./exceptions/ServiceException");
 const config = require("./config");
 
-// twilio
-const twilio = require('twilio')
-const accountSid = 'AC23f2171f48cfe11a66834fd8b83da878'
-const authToken = 'a71402b143007184de1dc217877cfe1f'
-const client = twilio(accountSid, authToken)
+// // twilio
+// const twilio = require('twilio')
+// const accountSid = 'AC23f2171f48cfe11a66834fd8b83da878'
+// const authToken = 'a71402b143007184de1dc217877cfe1f'
+// const client = twilio(accountSid, authToken)
 
-client.messages.create({
-        from: 'whatsapp:+14155238886',
-        to:'whatsapp:+5491158291281',
-        body: 'el body'
-    })
-    .then(message => console.log(message.sid))
-    .catch(e => console.log(e))
+// client.messages.create({
+//         from: 'whatsapp:+14155238886',
+//         to:'whatsapp:+5491158291281',
+//         body: 'el body'
+//     })
+//     .then(message => console.log(message.sid))
+//     .catch(e => console.log(e))
    
 
 // rutas
@@ -70,7 +70,6 @@ const app = express();
 
 // chat
 const Message = require('./models/Message');
-const { log } = require("console");
 const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
 
@@ -125,6 +124,11 @@ app.use('/', authRouter)
 // ruta root
 app.get('/', require('./middlewares/auth').auth, (req, res) => {
     res.render('index')
+})
+
+// session
+app.get('/session', (req, res) => {
+    res.send(req.session)
 })
 
 // ruta 404
