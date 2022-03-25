@@ -21,45 +21,56 @@ const getByUserId = async (req, res) => {
 }
 
 const addToCart = async (req, res) => {
+
     try {
-        Cart.findOne({userId:req.session.userId}).then((cart) => {
-            if (cart) {
-                let id = cart._id
-                cart.updateOne({_id: id }, cart).then((response) => {
-                }).catch((error) => {                  
-                    console.log('errorrr!!');
-                })  
-                res.json(cart)   
-            } else {
-                console.log('error!!');
-            }
-        })
+        let cart = await Cart.findOne({userId:req.session.userId})
+        cart.products.push(req.body)
+        cart.save();
+        res.redirect('/products')
+
+    // alternativa con updateOne
+    // try {
+    //     Cart.findOne({userId:req.session.userId}).then((cart) => {
+    //         if (cart) {
+    //             let id = cart._id
+    //             cart.updateOne({_id: id }, cart).then((response) => {
+    //             }).catch((error) => {                  
+    //                 console.log('errorrr!!');
+    //             })  
+    //             res.json(cart)   
+    //         } else {
+    //             console.log('error!!');
+    //         }
+    //     })
+
     } catch (error) {
         console.log('error', error);
     }
 }
 
 const purchase = async (req, res) => {
-    try {
         Cart.findOne({userId:req.session.userId}).then((cart) => {
         
-        // envío whatsapp por twilio
+        // envío whatsapp por twilio al admin
         client.messages.create({
                 from: 'whatsapp:+14155238886',
                 to:'whatsapp:+5491158291281',
-                body: `el body ${JSON.stringify(cart.products)}`
+                body: `Compraste ${JSON.stringify(cart.products)}`
         })
         .then(message => console.log(message.sid))
         .catch(e => console.log(e))
-
-        return true
-    })
-
-    } catch (error) {
-        console.log(error);
-        return false
-    }
     
+    }).then(() => {
+
+        // envío whatsapp por twilio al cliente
+        client.messages.create({
+                from: 'whatsapp:+14155238886',
+                to:`whatsapp:+${req.session.phone}`,
+                body: `Tu pedido está en proceso!`
+        })
+        .then(message => console.log(message.sid))
+        .catch(e => console.log(e)) 
+    })
 }
 
 module.exports = { createCart, getByUserId, addToCart, purchase }

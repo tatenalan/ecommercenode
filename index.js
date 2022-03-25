@@ -84,7 +84,7 @@ app.use(session({
     resave: true,
     rolling: true,
     saveUninitialized: true,
-    // cookie: { maxAge: 60000 } // 60 segundos
+    cookie: { maxAge: 60000 } // 60 segundos
 }))
 
 
@@ -123,6 +123,7 @@ app.use('/', authRouter)
 
 // ruta root
 app.get('/', require('./middlewares/auth').auth, (req, res) => {
+    console.log(req.session);
     res.render('index')
 })
 
